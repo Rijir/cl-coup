@@ -1,0 +1,2 @@
+(defpackage :coup
+  (:use :cl))
