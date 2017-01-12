@@ -15,6 +15,16 @@
           :initform 0
           :reader player-money)))
 
+(defstruct player-view
+  (id :readonly)
+  (money :readonly)
+  (influence :readonly))
+
+(defun player-view-from-player (p)
+  (make-player-view :id (player-id p)
+                    :money (player-money p)
+                    :influence (length (player-cards p))))
+
 ;;TODO: add arround methods for each of these to validate returns
 ;; except that could be circumvented by a more specific arround method...
 ;; real solution would be to have functions wrap these methods which verify

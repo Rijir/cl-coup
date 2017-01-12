@@ -27,7 +27,6 @@
      1))
 
 (defun step-game (g pid)
-  (break)
   (let ((p (find-if (lambda (p) (eq pid (player-id p))) (game-players g))))
     (if (> (length (player-cards p)) 0)
         (let ((a (player-get-action p g)))

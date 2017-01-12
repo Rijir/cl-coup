@@ -24,6 +24,10 @@
    player-contest?
    copy-player
    players-equal
+   player-view
+   player-view-money
+   player-view-influence
+   player-view-from-player
 
    ;; game.lisp
    game

@@ -153,6 +153,7 @@
                                        :count 1)
                                :count 1)))
          (deck (alexandria:shuffle deck)))
+    (format t "~A~&" cards)
     (copy-game-modified g
                         :players (substitute (copy-player p
                                                           :cards to-keep)

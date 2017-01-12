@@ -12,5 +12,8 @@
   (find-if (lambda (p) (eql id (player-id p))) (game-players g)))
 
 (defstruct game-view
-  (current-player :read-only)
-  (players :read-only))
+  (player-views :read-only))
+
+(defun game-view-from-game (g)
+  (make-game-view :player-views (mapcar (game-players g)
+                                        #'player-view-from-player)))

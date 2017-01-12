@@ -42,16 +42,16 @@
                       :target (choose-from-options (game-players g)))))))
 
 (defmethod player-lose-card ((p manual-player) g)
-  (format t "Choose which card to lose")
+  (format t "Choose which card to lose~&")
   (choose-from-options (player-cards p)))
 
 (defmethod player-exchange ((p manual-player) cards g)
-  (format t "Choose first card to keep")
-  (let ((first-card (choose-from-options (player-cards p))))
-    (format t "Choose second card to keep")
+  (format t "Choose first card to keep~&")
+  (let ((first-card (choose-from-options cards)))
+    (format t "Choose second card to keep~&")
     (list first-card
           (choose-from-options (remove first-card
-                                       (player-cards p)
+                                       cards
                                        :count 1)))))
 
 (defmethod player-block? ((p manual-player) a g)
@@ -59,3 +59,9 @@
 
 (defmethod player-contest? ((p manual-player) a g)
   (y-or-n-p "<~D> Contest ~A?" (player-id p) a))
+
+(defun run-new-manual-game (num-players)
+  (let* ((ps (loop for i from 1 to num-players
+                   collect (make-instance 'manual-player)))
+         (g (init-game ps)))
+    (run-game g)))

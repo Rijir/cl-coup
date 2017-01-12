@@ -1,5 +1,5 @@
 (defsystem coup
-  :description "coup: an engine for the card game Coup, along with hopefully a great AI"
+  :description "cl-coup: an engine for the card game Coup, along with hopefully a great AI"
   :version "0.0.1"
   :author "Timothy Trindle <ttrindle@uw.edu>"
   :licence "TBD"
@@ -24,7 +24,9 @@
   :defsystem-depends-on (:prove-asdf)
   :components ((:file "test/package"))
   :in-order-to ((test-op (test-op coup/test/card
-                                  coup/test/action))))
+                                  coup/test/action
+                                  coup/test/game
+                                  coup/test/player))))
 
 (defsystem coup/test/card
   :depends-on (:coup/test)
@@ -37,5 +39,19 @@
   :depends-on (:coup/test)
   :defsystem-depends-on (:prove-asdf)
   :components ((:test-file "test/action-tests"))
+  :perform (test-op :after (op c)
+                    (funcall (intern #.(string :run) :prove) c)))
+
+(defsystem coup/test/player
+  :depends-on (:coup/test)
+  :defsystem-depends-on (:prove-asdf)
+  :components ((:test-file "test/player-tests"))
+  :perform (test-op :after (op c)
+                    (funcall (intern #.(string :run) :prove) c)))
+
+(defsystem coup/test/game
+  :depends-on (:coup/test)
+  :defsystem-depends-on (:prove-asdf)
+  :components ((:test-file "test/game-tests"))
   :perform (test-op :after (op c)
                     (funcall (intern #.(string :run) :prove) c)))
